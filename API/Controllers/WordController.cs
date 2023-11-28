@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using static Persistence.Enum.WordStatus;
 
 namespace API.Controllers
 {
@@ -19,6 +20,10 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Word>>> GetWords() => await context.Words.ToListAsync();
 
+
+        [HttpGet]
+        [Route("GetWordsByLevel/{status}")]
+        public async Task<ActionResult<List<Word>>> GetWordsByLevel(Status status) => await context.Words.Where(c=> c.status==status).ToListAsync();
 
         [HttpGet]
         [Route("GetWordById/{id}")]
